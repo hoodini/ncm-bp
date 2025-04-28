@@ -1,6 +1,6 @@
 # NCM Business Portfolio
 
-![NCM Business Portfolio](https://i.imgur.com/MOfVGGV.png)
+![NCM Business Portfolio](https://imgur.com/a/x63bM9V)
 
 A modern business portfolio application built with Next.js 14, Clerk Authentication, TailwindCSS, and shadcn/ui components.
 
