@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NCM Business Portfolio
 
-## Getting Started
+![NCM Business Portfolio](https://i.imgur.com/MOfVGGV.png)
 
-First, run the development server:
+A modern business portfolio application built with Next.js 14, Clerk Authentication, TailwindCSS, and shadcn/ui components.
+
+## 🚀 Features
+
+- **Modern UI/UX**: Beautiful, responsive design with glassmorphism effects
+- **Authentication**: Secure user authentication powered by Clerk
+- **Dashboard Analytics**: Interactive charts and visualization
+- **Project Management**: Create and manage project portfolios
+- **Theme Support**: Dark/Light mode toggle
+- **Mobile-First Design**: Fully responsive interface for all devices
+
+## 🧰 Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Authentication**: [Clerk](https://clerk.dev/) 
+- **Styling**: [TailwindCSS](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **Charts**: Recharts-based custom components
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Fonts**: Google Outfit font
+- **Database**: Supabase (PostgreSQL)
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js 18.17 or later
+- npm or yarn
+- Git
+
+### Setup Instructions
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/ncm-business-portfolio.git
+cd ncm-business-portfolio
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. **Set up environment variables**
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+# Supabase (if using)
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. **Run the development server**
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Key Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Dashboard** (`/dashboard`): Main overview with statistics and project summaries
+- **Projects** (`/projects`): Project listing and management
+- **Analytics** (`/analytics`): Detailed analytics with interactive charts
+- **Settings** (`/settings`): User profile and application settings
 
-## Learn More
+## 🌟 Custom Components
 
-To learn more about Next.js, take a look at the following resources:
+The application features several custom components:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Charts**: Area, Bar, Line and Pie charts with responsive design
+- **Header**: Responsive navigation with mobile drawer
+- **Theme Toggle**: Light/Dark mode switcher
+- **Cards**: Beautiful glassmorphism-style cards for content display
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Responsive Design
 
-## Deploy on Vercel
+The application is built with a mobile-first approach and includes:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Responsive navigation (collapsible sidebar on mobile)
+- Fluid layouts that adapt to any screen size
+- Optimized content display for different devices
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧩 Project Structure
+
+```
+ncm-business-portfolio/
+├── public/              # Static assets
+├── src/
+│   ├── app/             # App router pages
+│   │   ├── dashboard/   # Dashboard page
+│   │   ├── projects/    # Projects page
+│   │   ├── analytics/   # Analytics page
+│   │   ├── settings/    # Settings page
+│   │   └── ...
+│   ├── components/      # Reusable components
+│   │   ├── charts/      # Chart components
+│   │   ├── ui/          # shadcn/ui components
+│   │   └── ...
+│   └── lib/             # Utility functions and shared logic
+├── next.config.ts       # Next.js configuration
+├── tailwind.config.js   # TailwindCSS configuration
+└── ...
+```
+
+## 🚀 Deployment
+
+This application can be easily deployed on:
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://www.netlify.com/)
+- [Railway](https://railway.app/)
+
+## 🔒 Authentication Flow
+
+The authentication is handled by Clerk and includes:
+
+- Sign up/Sign in pages
+- Protected routes
+- User profile management
+- Authentication middleware
+
+## 🧪 Extending the Project
+
+To add new features to the project:
+
+1. For new pages, create folders in the `src/app` directory
+2. For new components, add them to the `src/components` directory
+3. For database integrations, use Supabase client in server components
+
+## 🌈 Customization
+
+Customize the look and feel of the application:
+
+- Edit `tailwind.config.js` to change theme colors
+- Modify `src/app/layout.tsx` to update global layout
+- Update fonts and styles in the theme configuration
+
+## 👤 About the Developer
+
+Created with 💜 by [Yuval Avidani](https://linktr.ee/yuvai), AI Builder & Speaker
+
+- X: [@yuvalav](https://x.com/yuvalav)
+- Instagram: [@yuval_770](https://instagram.com/yuval_770)
+- Blog: [https://yuv.ai](https://yuv.ai)
+
+> "Fly High With YUV.AI"
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
