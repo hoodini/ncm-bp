@@ -24,7 +24,7 @@ A modern business portfolio application built with Next.js 14, Clerk Authenticat
 - **Charts**: Recharts-based custom components
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Fonts**: Google Outfit font
-- **Database**: Supabase (PostgreSQL)
+- **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 
 ## 📦 Installation
 
@@ -33,8 +33,9 @@ A modern business portfolio application built with Next.js 14, Clerk Authenticat
 - Node.js 18.17 or later
 - npm or yarn
 - Git
+- MongoDB Atlas account
 
-### Setup Instructions
+### Step-by-Step Setup Instructions
 
 1. **Clone the repository**
 
@@ -51,7 +52,27 @@ npm install
 yarn install
 ```
 
-3. **Set up environment variables**
+3. **Set up MongoDB Atlas**
+
+   a. Create a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register) if you don't have one
+   
+   b. Create a new project and cluster (the free tier works perfectly)
+   
+   c. Set up database access:
+      - Create a database user with password authentication
+      - Remember to save these credentials securely
+   
+   d. Set up network access:
+      - Add your current IP address to the IP Access List
+      - For development, you can allow access from anywhere (0.0.0.0/0)
+   
+   e. Get your connection string:
+      - Go to your cluster and click "Connect"
+      - Select "Connect your application"
+      - Copy the connection string (it will look like: `mongodb+srv://username:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority`)
+      - Replace `<password>` with your database user's password
+
+4. **Set up environment variables**
 
 Create a `.env.local` file in the root directory with the following variables:
 
@@ -64,12 +85,12 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-# Supabase (if using)
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+# MongoDB Atlas
+MONGODB_URI=your_mongodb_connection_string
+MONGODB_DB_NAME=your_database_name
 ```
 
-4. **Run the development server**
+5. **Run the development server**
 
 ```bash
 npm run dev
@@ -77,7 +98,9 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+6. **Open your browser**
+
+Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## 📋 Key Pages
 
@@ -119,7 +142,8 @@ ncm-business-portfolio/
 │   │   ├── charts/      # Chart components
 │   │   ├── ui/          # shadcn/ui components
 │   │   └── ...
-│   └── lib/             # Utility functions and shared logic
+│   ├── lib/             # Utility functions and shared logic
+│   └── models/          # MongoDB schema models
 ├── next.config.ts       # Next.js configuration
 ├── tailwind.config.js   # TailwindCSS configuration
 └── ...
@@ -148,7 +172,7 @@ To add new features to the project:
 
 1. For new pages, create folders in the `src/app` directory
 2. For new components, add them to the `src/components` directory
-3. For database integrations, use Supabase client in server components
+3. For database integrations, set up MongoDB models in the `src/models` directory
 
 ## 🌈 Customization
 
