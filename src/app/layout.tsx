@@ -25,11 +25,6 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning className={outfit.variable}>
-        <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
-        </head>
         <body className="font-outfit antialiased min-h-screen bg-gradient-to-br from-background to-background">
           <div className="fixed inset-0 -z-10 overflow-hidden">
             <div className="absolute top-[-30%] left-[-20%] w-[80%] h-[80%] rounded-full bg-purple-600/10 blur-[120px]" />
