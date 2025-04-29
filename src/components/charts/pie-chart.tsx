@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Cell,
   Pie,
@@ -32,10 +32,16 @@ export function PieChartComponent({
   donut = true,
   totalText,
 }: PieChartProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  
+  // Set mounted to true after the component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  const isDark = mounted ? resolvedTheme === "dark" : false;
   
   const handleMouseEnter = (_: any, index: number) => {
     setActiveIndex(index);
@@ -45,16 +51,16 @@ export function PieChartComponent({
     setActiveIndex(null);
   };
 
-  // Pastel colors for the pie chart
+  // Stable colors that work for both light and dark themes
   const COLORS = [
-    isDark ? '#c084fc' : '#d8b4fe',  // Purple
-    isDark ? '#fef08a' : '#fef9c3',  // Yellow
-    isDark ? '#93c5fd' : '#bfdbfe',  // Blue
-    isDark ? '#86efac' : '#bbf7d0',  // Green
-    isDark ? '#fb7185' : '#fda4af',  // Red
-    isDark ? '#67e8f9' : '#a5f3fc',  // Cyan
-    isDark ? '#fdba74' : '#fed7aa',  // Orange
-    isDark ? '#d8b4fe' : '#e9d5ff',  // Violet
+    '#c084fc',  // Purple
+    '#fef08a',  // Yellow
+    '#93c5fd',  // Blue
+    '#86efac',  // Green
+    '#fb7185',  // Red
+    '#67e8f9',  // Cyan
+    '#fdba74',  // Orange
+    '#d8b4fe',  // Violet
   ];
 
   const renderActiveShape = (props: any) => {
@@ -82,7 +88,7 @@ export function PieChartComponent({
           endAngle={endAngle}
           fill={fill}
         />
-        {donut && totalText && (
+        {donut && totalText && mounted && (
           <text
             x={cx}
             y={cy}
@@ -99,6 +105,36 @@ export function PieChartComponent({
   };
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
+
+  // If not mounted yet, render a minimal version that won't cause hydration issues
+  if (!mounted) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle>{title || "Pie Chart"}</CardTitle>
+          <CardDescription>
+            {description || "Distribution of values"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[300px] flex items-center justify-center">
+            {/* Empty space for chart */}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+            {data.map((entry, index) => (
+              <div key={`legend-${index}`} className="flex items-center gap-2">
+                <div 
+                  className="w-3 h-3 rounded-full" 
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="text-sm truncate">{entry.name}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className={className}>

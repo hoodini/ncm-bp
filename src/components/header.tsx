@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import { Menu } from "lucide-react"
@@ -9,6 +10,36 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function Header() {
+  const [mounted, setMounted] = useState(false)
+
+  // Set mounted to true after component mounts
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Ensure a consistent initial render that matches the server
+  // A simple version without any interactive elements while not mounted
+  if (!mounted) {
+    return (
+      <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
+        <div className="max-w-[1400px] mx-auto flex h-16 items-center px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2">
+            <div className="lg:hidden w-9 h-9 flex items-center justify-center"></div>
+            <Link href="/" className="flex items-center gap-2">
+              <span className="h-8 w-8 flex items-center justify-center rounded-full bg-purple-600 text-white font-bold">Y</span>
+              <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-yellow-400">
+                YUV.AI
+              </span>
+            </Link>
+          </div>
+          <div className="flex items-center justify-end gap-3 ml-auto">
+            <div className="w-9 h-9"></div>
+          </div>
+        </div>
+      </header>
+    )
+  }
+
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
       <div className="max-w-[1400px] mx-auto flex h-16 items-center px-4 sm:px-6 lg:px-8">

@@ -34,6 +34,17 @@ A modern business portfolio application built with Next.js 14, Clerk Authenticat
 - npm or yarn
 - Git
 - MongoDB Atlas account
+- Clerk account
+
+### Recommended Development Tools
+
+For the best development experience, we recommend using one of these AI-powered tools:
+
+- [Cursor](https://cursor.sh/) - AI-powered code editor
+- [GitHub Copilot](https://github.com/features/copilot) - AI pair programmer
+- [Windsurf](https://www.phind.com/blog/code-editor) - AI coding assistant
+
+These tools will help you understand and modify the codebase more efficiently.
 
 ### Step-by-Step Setup Instructions
 
@@ -52,7 +63,34 @@ npm install
 yarn install
 ```
 
-3. **Set up MongoDB Atlas**
+3. **Set up Clerk Authentication**
+
+   a. Create a [Clerk account](https://clerk.dev/sign-up) if you don't have one
+   
+   b. Create a new application:
+      - Go to the Clerk Dashboard and click "Add Application"
+      - Enter a name for your application
+      - Select "Next.js" as the framework
+   
+   c. Configure your application:
+      - In the Clerk Dashboard, go to your application
+      - Go to "API Keys" in the sidebar
+      - You'll find your "Publishable Key" and "Secret Key"
+      - Copy these keys for your environment variables
+   
+   d. Configure sign-in options (optional):
+      - In the Clerk Dashboard, go to "Authentication" → "Social Connections"
+      - Enable the social login providers you want to support (e.g., Google, GitHub)
+      - Follow the instructions to set up each provider
+   
+   e. Set up redirect URLs:
+      - In "Authentication" → "Redirects", set the following:
+        - Sign-in: `/sign-in`
+        - Sign-up: `/sign-up`
+        - After sign-in: `/dashboard`
+        - After sign-up: `/dashboard`
+
+4. **Set up MongoDB Atlas**
 
    a. Create a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register) if you don't have one
    
@@ -72,7 +110,7 @@ yarn install
       - Copy the connection string (it will look like: `mongodb+srv://username:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority`)
       - Replace `<password>` with your database user's password
 
-4. **Set up environment variables**
+5. **Set up environment variables**
 
 Create a `.env.local` file in the root directory with the following variables:
 
@@ -90,7 +128,7 @@ MONGODB_URI=your_mongodb_connection_string
 MONGODB_DB_NAME=your_database_name
 ```
 
-5. **Run the development server**
+6. **Run the development server**
 
 ```bash
 npm run dev
@@ -98,7 +136,7 @@ npm run dev
 yarn dev
 ```
 
-6. **Open your browser**
+7. **Open your browser**
 
 Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
@@ -165,6 +203,32 @@ The authentication is handled by Clerk and includes:
 - Protected routes
 - User profile management
 - Authentication middleware
+
+### Understanding Clerk Authentication
+
+Once set up, Clerk provides:
+
+1. **Pre-built components**: `<SignIn />`, `<SignUp />`, `<UserProfile />`, etc.
+2. **Auth hooks**: `useAuth()`, `useUser()`, etc. for accessing user data
+3. **Middleware**: Protects routes based on authentication status
+4. **Server-side helpers**: For accessing user data in server components
+
+Example of protecting a route:
+```jsx
+// In your route component
+import { auth } from "@clerk/nextjs";
+
+export default function ProtectedPage() {
+  const { userId } = auth();
+  
+  if (!userId) {
+    // Handle unauthenticated state
+    redirect("/sign-in");
+  }
+  
+  // Render content for authenticated users
+}
+```
 
 ## 🧪 Extending the Project
 

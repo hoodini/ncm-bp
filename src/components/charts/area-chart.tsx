@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Area,
   AreaChart,
@@ -30,10 +30,16 @@ export function AreaChartComponent({
   data,
   className,
 }: AreaChartProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  
+  // Set mounted to true after the component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  const isDark = mounted ? resolvedTheme === "dark" : false;
   
   const handleMouseEnter = (_: any, index: number) => {
     setActiveIndex(index);
@@ -55,6 +61,30 @@ export function AreaChartComponent({
 
   const percentChange = getPercentChange();
   const trend = percentChange >= 0 ? "up" : "down";
+  
+  // If not mounted yet, render a minimal version that won't cause hydration issues
+  if (!mounted) {
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle>{title || "Area Chart"}</CardTitle>
+          <CardDescription>
+            {description || "Showing data trends over time"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-4 flex items-center gap-2">
+            <p className="text-sm font-medium">
+              Loading chart data...
+            </p>
+          </div>
+          <div className="h-[300px]">
+            {/* Empty space for chart */}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   
   return (
     <Card className={className}>
